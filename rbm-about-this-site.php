@@ -109,7 +109,18 @@ if ( ! class_exists( 'RBM_AboutThisSite' ) ) {
 				return $content;
 			}
 
-			return file_get_contents( __DIR__ . '/template.html' );
+			// Figure out which template to use
+			if ( file_exists( get_stylesheet_directory() . '/rbm-about-this-site.html' ) ) {
+				$template = file_get_contents( get_stylesheet_directory() . '/rbm-about-this-site.html' );
+
+			} else if ( file_exists( get_template_directory() . '/rbm-about-this-site.html' ) ) {
+				$template = file_get_contents( get_template_directory() . '/rbm-about-this-site.html' );
+
+			} else {
+				$template = file_get_contents( __DIR__ . '/template.html' );
+			}
+
+			return $template;
 		}
 
 		/**
